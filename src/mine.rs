@@ -66,9 +66,13 @@ impl Miner {
                 find_bus(),
                 solution,
             ));
-            self.send_and_confirm(&ixs, ComputeBudget::Fixed(compute_budget), false)
-                .await
-                .ok();
+            if best_difficulty >= 19 as u32 {
+                self.send_and_confirm(&ixs, ComputeBudget::Fixed(compute_budget), false)
+                    .await
+                    .ok();
+            } else {
+                println!("{}, difficult: {}", "best_difficult < 19".red(), best_difficulty);
+            }
         }
     }
 
