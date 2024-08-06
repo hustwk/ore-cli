@@ -45,7 +45,7 @@ impl Miner {
             let cutoff_time = self.get_cutoff(proof, args.buffer_time).await;
 
             // Run drillx
-            let solution = Self::find_hash_par(
+            let (solution, best_difficulty) = Self::find_hash_par(
                 proof,
                 cutoff_time,
                 args.threads,
@@ -71,7 +71,7 @@ impl Miner {
                     .await
                     .ok();
             } else {
-                println!("{}, difficult: {}", "best_difficult < 19".red(), best_difficulty);
+                println!("no no no, difficult: {}", best_difficulty);
             }
         }
     }
@@ -159,7 +159,7 @@ impl Miner {
             best_difficulty
         ));
 
-        Solution::new(best_hash.d, best_nonce.to_le_bytes())
+        (Solution::new(best_hash.d, best_nonce.to_le_bytes()), best_difficulty)
     }
 
     pub fn check_num_cores(&self, threads: u64) {
