@@ -23,7 +23,6 @@ use crate::{
 
 impl Miner {
     pub async fn mine(&self, args: MineArgs) {
-        let mut flag = true;
         // Register, if needed.
         let signer = self.signer();
         self.open().await;
@@ -68,14 +67,9 @@ impl Miner {
                 find_bus(),
                 solution,
             ));
-            if best_difficulty >= 18 as u32 || flag {
-                flag = false;
-                self.send_and_confirm(&ixs, ComputeBudget::Fixed(compute_budget), false)
-                    .await
-                    .ok();
-            } else {
-                println!("no no no, difficult: {}", best_difficulty);
-            }
+            self.send_and_confirm(&ixs, ComputeBudget::Fixed(compute_budget), false)
+                .await
+                .ok();
         }
     }
 
