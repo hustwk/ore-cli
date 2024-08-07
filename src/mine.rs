@@ -67,7 +67,7 @@ impl Miner {
                 find_bus(),
                 solution,
             ));
-            if best_difficulty >= 19 as u32 || flag {
+            if best_difficulty >= 18 as u32 || flag {
                 flag = false;
                 self.send_and_confirm(&ixs, ComputeBudget::Fixed(compute_budget), false)
                     .await
@@ -85,8 +85,8 @@ impl Miner {
         min_difficulty: u32,
     ) -> (Solution, u32) {
         let mut my_difficulty = min_difficulty;
-        if min_difficulty < 19 {
-            my_difficulty = 19;
+        if min_difficulty < 18 {
+            my_difficulty = 18;
         } else {
             my_difficulty = min_difficulty;
         }
