@@ -85,8 +85,8 @@ impl Miner {
         threads: u64,
         min_difficulty: u32,
     ) -> (Solution, u32) {
-        let my_difficulty = if min_difficulty < 18 && cutoff_time != 0 {
-            18
+        let my_difficulty = if min_difficulty < 19 && cutoff_time != 0 {
+            19
         } else {
             min_difficulty
         };
