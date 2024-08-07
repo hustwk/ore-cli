@@ -84,12 +84,12 @@ impl Miner {
         threads: u64,
         min_difficulty: u32,
     ) -> (Solution, u32) {
-        let mut my_difficulty = 0;
-        if min_difficulty < 18 {
-            my_difficulty = 18;
+        let my_difficulty = if min_difficulty < 18 {
+            18
         } else {
-            my_difficulty = min_difficulty;
-        }
+            min_difficulty
+        };
+        
         // Dispatch job to each thread
         let progress_bar = Arc::new(spinner::new_progress_bar());
         progress_bar.set_message("Mining...");
