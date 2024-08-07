@@ -84,7 +84,7 @@ impl Miner {
         threads: u64,
         min_difficulty: u32,
     ) -> (Solution, u32) {
-        let mut my_difficulty;
+        let mut my_difficulty = min_difficulty;
         if min_difficulty < 19 {
             my_difficulty = 19;
         } else {
