@@ -84,8 +84,11 @@ impl Miner {
         threads: u64,
         min_difficulty: u32,
     ) -> (Solution, u32) {
+        let mut my_difficulty;
         if min_difficulty < 19 {
-            min_difficulty = 19;
+            my_difficulty = 19;
+        } else {
+            my_difficulty = min_difficulty;
         }
         // Dispatch job to each thread
         let progress_bar = Arc::new(spinner::new_progress_bar());
@@ -120,7 +123,7 @@ impl Miner {
                             // Exit if time has elapsed
                             if nonce % 100 == 0 {
                                 if timer.elapsed().as_secs().ge(&cutoff_time) {
-                                    if best_difficulty.ge(&min_difficulty) {
+                                    if best_difficulty.ge(&my_difficulty) {
                                         // Mine until min difficulty has been met
                                         break;
                                     }
