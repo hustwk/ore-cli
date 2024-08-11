@@ -160,9 +160,10 @@ impl Miner {
                                 if timer.elapsed().as_secs().ge(&cutoff_time) {
                                     if i.id == 0 {
                                         progress_bar.set_message(format!(
-                                            "Mining... ({} / {} difficulty)",
+                                            "Mining... ({} / {} difficulty, ext {} sec)",
                                             global_best_difficulty,
                                             my_difficulty,
+                                            cutoff_time.saturating_sub(timer.elapsed().as_secs()),
                                         ));
                                     }
                                     if global_best_difficulty.ge(&my_difficulty) {
