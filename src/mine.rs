@@ -163,7 +163,7 @@ impl Miner {
                                             "Mining... ({} / {} difficulty, ext {} sec)",
                                             global_best_difficulty,
                                             my_difficulty,
-                                            cutoff_time.saturating_sub(timer.elapsed().as_secs()),
+                                            timer.elapsed().as_secs().saturating_sub(cutoff_time),
                                         ));
                                     }
                                     if global_best_difficulty.ge(&my_difficulty) {
